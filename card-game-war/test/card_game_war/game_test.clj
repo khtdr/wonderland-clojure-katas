@@ -5,49 +5,49 @@
 
 (deftest test-play-round
   (testing "the highest rank wins the cards in the round"
-    (is (= {:rank 3 :suit :spade}
-           (winner [{:rank 2 :suit :spade}
-                    {:rank 3 :suit :spade}])
+    (is (= [3 :spade]
+           (winner [[2 :spade]
+                    [3 :spade]])
            )))
   (testing "order doesn't matter"
-    (is (= {:rank 4 :suit :spade}
-           (winner [{:rank 4 :suit :spade}
-                    {:rank 3 :suit :spade}])
+    (is (= [4 :spade]
+           (winner [[4 :spade]
+                    [3 :spade]])
            )))
   (testing "jacks are higher rank than numbers"
-    (is (= {:rank :jack :suit :spade}
-           (winner [{:rank 10 :suit :spade}
-                    {:rank :jack :suit :spade}])
+    (is (= [:jack :spade]
+           (winner [[10 :spade]
+                    [:jack :spade]])
            )))
   (testing "queens are higher rank than jacks"
-    (is (= {:rank :queen :suit :spade}
-           (winner [{:rank :queen :suit :spade}
-                    {:rank :jack :suit :spade}])
+    (is (= [:queen :spade]
+           (winner [[:queen :spade]
+                    [:jack :spade]])
            )))
   (testing "kings are higher rank than queens"
-    (is (= {:rank :king :suit :spade}
-           (winner [{:rank :queen :suit :spade}
-                    {:rank :king :suit :spade}])
+    (is (= [:king :spade]
+           (winner [[:queen :spade]
+                    [:king :spade]])
            )))
   (testing "aces are higher rank than kings"
-    (is (= {:rank :ace :suit :spade}
-           (winner [{:rank :king :suit :spade}
-                    {:rank :ace :suit :spade}])
+    (is (= [:ace :spade]
+           (winner [[:king :spade]
+                    [:ace :spade]])
            )))
   (testing "if the ranks are equal, clubs beat spades"
-    (is (= {:rank :ace :suit :club}
-           (winner [{:rank :ace :suit :club}
-                    {:rank :ace :suit :spade}])
+    (is (= [:ace :club]
+           (winner [[:ace :club]
+                    [:ace :spade]])
            )))
   (testing "if the ranks are equal, diamonds beat clubs"
-    (is (= {:rank :ace :suit :diamond}
-           (winner [{:rank :ace :suit :club}
-                    {:rank :ace :suit :diamond}])
+    (is (= [:ace :diamond]
+           (winner [[:ace :club]
+                    [:ace :diamond]])
            )))
   (testing "if the ranks are equal, hearts beat diamonds"
-    (is (= {:rank :ace :suit :heart}
-           (winner [{:rank :ace :suit :heart}
-                    {:rank :ace :suit :diamond}])
+    (is (= [:ace :heart]
+           (winner [[:ace :heart]
+                    [:ace :diamond]])
            ))))
 
 (deftest test-play-game

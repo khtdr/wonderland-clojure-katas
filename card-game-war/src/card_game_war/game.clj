@@ -4,8 +4,9 @@
 (def ranks [2 3 4 5 6 7 8 9 10 :jack :queen :king :ace])
 
 (defn make-deck []
-  (for [suit suits, rank ranks]
-    {:suit suit :rank rank}))
+  (for [suit suits
+        rank ranks]
+    [rank suit]))
 
 (defn split-rand [coll]
   (split-at (rand-int (count coll)) coll))
@@ -20,8 +21,8 @@
 (defn deal [deck] (split-at (quot (count deck) 2) deck))
 
 (defn score-card [card]
-  (+ (.indexOf suits (:suit card))
-     (* 4 (.indexOf ranks (:rank card)))))
+  (+ (.indexOf suits (last card))
+     (* 4 (.indexOf ranks (first card)))))
 
 (defn winner [[card-1 card-2]]
   (if (> (score-card card-1)
