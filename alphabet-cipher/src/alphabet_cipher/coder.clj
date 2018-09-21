@@ -22,7 +22,6 @@
 
 (defn repeats-in? [word text]
   (cond (empty? text) true
-        (= word text) true
         (> (count word) (count text)) (= text (subs word 0 (count text)))
         (= word (subs text 0 (count word))) (repeats-in? word (subs text (count word)))
         :else false))
